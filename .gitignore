@@ -6,6 +6,8 @@ wp-config.php
 !wp-content/
 !docker-compose.yml
 !uploads.ini
+!composer.json
+!composer.lock
 
 # ignore these files/folders within wp-content
 wp-content/advanced-cache.php

@@ -1,0 +1,18 @@
+{
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "require": {
+	    "wpackagist-plugin/advanced-custom-fields": "^5.8",
+	    "wpackagist-plugin/acf-to-rest-api": "^3.1",
+	    "wpackagist-plugin/regenerate-thumbnails": "^3.1",
+	    "wpackagist-plugin/safe-svg": "^1.9",
+	    "wpackagist-plugin/google-analytics-dashboard-for-wp": "^5.3",
+	    "wpackagist-plugin/wordfence": "^7.4",
+	    "wpackagist-plugin/wordpress-seo": "^12.6",
+	    "roots/soil": "^3.9"
+	  }
+}
