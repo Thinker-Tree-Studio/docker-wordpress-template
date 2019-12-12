@@ -28,8 +28,9 @@ wp-content/themes/twenty*/
 vendor/
 wp-content/themes/thinkertree/wp-content/
 
-# ignore build folder (if applicable)
+# ignore build AND dist folder (if applicable)
 build/
+dist/
 
 # ignore node dependency directories
 node_modules/
