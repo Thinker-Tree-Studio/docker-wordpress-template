@@ -9,5 +9,9 @@
   "license": "ISC",
   "dependencies": {
     "jquery": "^3.4.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }
