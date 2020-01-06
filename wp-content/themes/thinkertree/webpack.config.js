@@ -23,7 +23,8 @@ module.exports = {
   			cache: true,
   			parallel: true,
   			sourceMap: true
-  		})
+  		}),
+  		new OptimizeCssAssetsPlugin({})
   	]
   },
   module: {
