@@ -19,16 +19,19 @@ module.exports = {
   },
   optimization: {
   	minimizer: [
+      // enable the js minification plugin
   		new UglifyJsPlugin({
   			cache: true,
   			parallel: true,
   			sourceMap: true
   		}),
+      // enable the css minification plugin
   		new OptimizeCssAssetsPlugin({})
   	]
   },
   module: {
   	rules: [
+      // compile all .scss files to plain old css
   		{
   			test: /\.scss$/,
   			use: [
@@ -40,6 +43,7 @@ module.exports = {
   	]
   },
   plugins: [
+    // extract css into dedicated file
   	new MiniCssExtractPlugin({
   		filename: '[name].css'
   	})
