@@ -120,7 +120,7 @@ add_action( 'widgets_init', 'thinkertree_widgets_init' );
  * Enqueue scripts and styles.
  */
 
-/* First, retrieve the hashed version of the file name */
+/* First, create a function yo retrieve the hashed version of the assets' file name */
 function get_versioning_asset_path ( $asset ) {
 	$map = get_template_directory() . '/dist/manifest.json';
 	static $hash = null;

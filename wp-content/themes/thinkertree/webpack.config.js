@@ -18,7 +18,7 @@ module.exports = {
   'output': {
     path: path.join(__dirname, 'dist/'),
     filename: '[name]-[hash].js',
-    chunkFilename: '[id]-[chunkhash].js',
+    chunkFilename: '[id]-[hash].js',
   },
   optimization: {
   	minimizer: [
@@ -49,7 +49,7 @@ module.exports = {
     // extract css into dedicated file
   	new MiniCssExtractPlugin({
   		filename: '[name]-[hash].css',
-      chunkFilename: '[id]-[chunkhash].css',
+      chunkFilename: '[id]-[hash].css',
   	}),
     // clean out dist directories on each build
     new CleanWebpackPlugin(),
