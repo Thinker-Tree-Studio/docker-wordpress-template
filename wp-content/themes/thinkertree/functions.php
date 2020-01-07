@@ -119,11 +119,29 @@ add_action( 'widgets_init', 'thinkertree_widgets_init' );
 /**
  * Enqueue scripts and styles.
  */
+
+/* First, retrieve the hashed version of the file name */
+function get_versioning_asset_path ( $asset ) {
+	$map = get_template_directory() . '/dist/manifest.json';
+	static $hash = null;
+
+	if( null === $hash ) {
+		$hash = file_exists( $map ) ? json_decode( file_get_contents( $map ), true ) : [];
+	}
+
+	if ( array_key_exists( $asset, $hash ) ) {
+        return '/dist/' . $hash[ $asset ];
+    }
+
+    return $asset;
+}
+
+/* Enqueue sthe scripts and styles */
 function thinkertree_scripts() {
 
-	wp_enqueue_style( 'site_main_css', get_template_directory_uri() . '/dist/site.css' );
+	wp_enqueue_style( 'site_main_css', get_template_directory_uri() . get_versioning_asset_path( 'site.css' ) );
 	
-	wp_enqueue_script( 'site_main_js', get_template_directory_uri() . '/dist/site.js', array(), null, true );
+	wp_enqueue_script( 'site_main_js', get_template_directory_uri() . get_versioning_asset_path( 'site.js' ), array(), null, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
