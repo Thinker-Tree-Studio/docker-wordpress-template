@@ -120,11 +120,10 @@ add_action( 'widgets_init', 'thinkertree_widgets_init' );
  * Enqueue scripts and styles.
  */
 function thinkertree_scripts() {
-	wp_enqueue_style( 'thinkertree-style', get_stylesheet_uri() );
 
-	wp_enqueue_script( 'thinkertree-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
-
-	wp_enqueue_script( 'thinkertree-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	wp_enqueue_style( 'site_main_css', get_template_directory_uri() . '/dist/site.css' );
+	
+	wp_enqueue_script( 'site_main_js', get_template_directory_uri() . '/dist/site.js', array(), null, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
