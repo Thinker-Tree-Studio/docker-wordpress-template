@@ -53,6 +53,7 @@ module.exports = {
   	}),
     // clean out dist directories on each build
     new CleanWebpackPlugin(),
+    // generate a JSON file that matches the original filename with the hashed version
     new WebpackAssetsManifest({
       // Options go here
     }),
