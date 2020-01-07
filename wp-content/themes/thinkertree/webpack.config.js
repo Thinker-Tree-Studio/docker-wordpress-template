@@ -7,6 +7,8 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // Build Config
 module.exports = {
@@ -14,8 +16,9 @@ module.exports = {
     'site': './src/site/index.js'
   },
   'output': {
-    filename: '[name].js',
-    path: path.join(__dirname, 'dist/')
+    path: path.join(__dirname, 'dist/'),
+    filename: '[name]-[hash].js',
+    chunkFilename: '[id]-[chunkhash].js',
   },
   optimization: {
   	minimizer: [
@@ -45,7 +48,13 @@ module.exports = {
   plugins: [
     // extract css into dedicated file
   	new MiniCssExtractPlugin({
-  		filename: '[name].css'
-  	})
+  		filename: '[name]-[hash].css',
+      chunkFilename: '[id]-[chunkhash].css',
+  	}),
+    // clean out dist directories on each build
+    new CleanWebpackPlugin(),
+    new WebpackAssetsManifest({
+      // Options go here
+    }),
   ]
 }
