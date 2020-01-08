@@ -163,6 +163,77 @@ function thinkertree_scripts() {
 add_action( 'wp_enqueue_scripts', 'thinkertree_scripts' );
 
 /**
+ * Add Options Page in ACF Pro
+ */
+if( function_exists('acf_add_options_page') ) {
+	acf_add_options_page();
+}
+
+/**
+ * Thumbnail Upscale
+ */
+function thinkertree_thumbnail_upscale( $default, $orig_w, $orig_h, $new_w, $new_h, $crop ){
+    if ( !$crop ) return null; // let the wordpress default function handle this
+	 
+	$aspect_ratio = $orig_w / $orig_h;
+	$size_ratio = max($new_w / $orig_w, $new_h / $orig_h);
+	 
+	$crop_w = round($new_w / $size_ratio);
+	$crop_h = round($new_h / $size_ratio);
+	 
+	$s_x = floor( ($orig_w - $crop_w) / 2 );
+	$s_y = floor( ($orig_h - $crop_h) / 2 );
+	 
+	return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
+}
+add_filter( 'image_resize_dimensions', 'thinkertree_thumbnail_upscale', 10, 6 );
+
+/**
+ * Custom Image Sizes
+ */
+function thinkertree_custom_image_sizes() {
+	// add_image_size('medium-large', 800, 800);
+	// add_image_size('hero-image', 1665, 9999);
+}
+add_action('after_setup_theme', 'thinkertree_custom_image_sizes');
+
+/**
+ * Page Slug Body Class
+ */
+function add_slug_body_class( $classes ) {
+	global $post;
+	if (is_home()) {
+        $key = array_search('blog', $classes);
+        if ($key > -1) {
+            unset($classes[$key]);
+        }
+    } elseif (is_page()) {
+        $classes[] = sanitize_html_class($post->post_name);
+    } elseif (is_singular()) {
+        $classes[] = sanitize_html_class($post->post_name);
+    }
+	return $classes;
+}
+add_filter( 'body_class', 'add_slug_body_class' );
+
+/**
+ * Set excerpt length
+ */
+// function custom_excerpt_length( $length ) {
+// 	return 30;
+// }
+// add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+/**
+ * Read More Excerpt link
+ */
+// function new_excerpt_more($more) {
+// 	global $post;
+// 	return '… <a href="'. get_permalink($post->ID) . '" class="read-more-link">' . 'Read More &raquo;' . '</a>';
+// }
+// add_filter('excerpt_more', 'new_excerpt_more');
+
+/**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
