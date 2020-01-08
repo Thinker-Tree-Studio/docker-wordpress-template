@@ -4,9 +4,7 @@ const cssnano = require('cssnano');
 
 module.exports = {
 	plugins: [
-		require('autoprefixer')({
-			browsers: ['> 5%', 'last 2 versions'],
-		}),
+		require('autoprefixer')({}),
 		require('pixrem')({
 			atrules: true,
 		}),

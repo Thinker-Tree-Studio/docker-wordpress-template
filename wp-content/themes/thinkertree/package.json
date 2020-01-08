@@ -9,6 +9,9 @@
   },
   "author": "Thinker Tree Studio",
   "license": "ISC",
+  "browserslist": [
+    "> 5% or last 2 versions"
+  ],
   "dependencies": {
     "jquery": "^3.4.1"
   },
