@@ -21,31 +21,31 @@ module.exports = {
     chunkFilename: '[id]-[hash].js',
   },
   optimization: {
-  	minimizer: [
+    minimizer: [
       // enable the js minification plugin
-  		new UglifyJsPlugin({
-  			cache: true,
-  			parallel: true,
-  			sourceMap: true
-  		}),
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true
+      }),
       // enable the css minification plugin
-  		new OptimizeCssAssetsPlugin({})
-  	]
+      new OptimizeCssAssetsPlugin({})
+    ]
   },
   module: {
-  	rules: [
+    rules: [
       // compile all .scss files to plain old css
-  		{
-  			test: /\.s?css$/,
-  			use: [
-  				MiniCssExtractPlugin.loader,
+      {
+        test: /\.s?css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
               sourceMap: true
             }
           },
-  				{
+          {
             loader: 'postcss-loader',
             options: {
               sourceMap: true
@@ -57,16 +57,65 @@ module.exports = {
               sourceMap: true
             }
           }
-  			]
-  		}
-  	]
+        ],
+      },
+      {
+        // Compile images
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: './dist/images/',
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      },
+      {
+        // Compile svg images
+        test: /\.(svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: './dist/images/',
+              name: '[name].[ext]',
+            },
+          },
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                { removeTitle: true },
+                { convertColors: { shorthex: false } },
+                { convertPathData: false },
+              ],
+            },
+          },
+        ]
+      },
+      {
+        // Compile fonts
+        test: /\.(woff(2)?|ttf|eot)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: './dist/fonts/',
+              name: '[name].[ext]',
+            },
+          },
+        ],
+      }
+    ]
   },
   plugins: [
     // extract css into dedicated file
-  	new MiniCssExtractPlugin({
-  		filename: '[name]-[hash].css',
+    new MiniCssExtractPlugin({
+      filename: '[name]-[hash].css',
       chunkFilename: '[id]-[hash].css',
-  	}),
+    }),
     // clean out dist directories on each build
     new CleanWebpackPlugin(),
     // generate a JSON file that matches the original filename with the hashed version
