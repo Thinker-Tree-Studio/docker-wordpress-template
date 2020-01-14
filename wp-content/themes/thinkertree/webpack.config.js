@@ -120,6 +120,17 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        // Use 'expose-loader' to make jQuery available to other scripts on global scope
+        test: require.resolve('jquery'),
+        use: [{
+          loader: 'expose-loader',
+          options: 'jQuery'
+        },{
+            loader: 'expose-loader',
+            options: '$'
+        }]
       }
     ]
   },
@@ -135,5 +146,11 @@ module.exports = {
     new WebpackAssetsManifest({
       // Options go here
     }),
+    // Add jQuery globally using ProvidePlugin
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+    })
   ]
 }
