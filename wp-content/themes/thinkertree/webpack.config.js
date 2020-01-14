@@ -96,6 +96,19 @@ module.exports = {
         ]
       },
       {
+        // Compile docs
+        test: /\.(pdf|docx|xlsx)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: './docs/',
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      },
+      {
         // Compile fonts
         test: /\.(woff(2)?|ttf|eot)$/,
         use: [
