@@ -1,3 +1,10 @@
+// Global font smoothing on text
+@mixin font-smoothing() {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
 // Rem output with px fallback
 @mixin font-size($sizeValue: 1) {
 	font-size: ($sizeValue * 16) * 1px;
@@ -26,4 +33,16 @@
 // Column width with margin
 @mixin column-width($numberColumns: 3) {
 	width: map-get( $columns, $numberColumns ) - ( ( $columns__margin * ( $numberColumns - 1 ) ) / $numberColumns );
+}
+
+// Word wrap
+@mixin word-wrap() {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
