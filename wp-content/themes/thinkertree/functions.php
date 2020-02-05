@@ -167,7 +167,15 @@ add_action( 'wp_enqueue_scripts', 'thinkertree_scripts' );
  * Add Options Page in ACF Pro
  */
 if( function_exists('acf_add_options_page') ) {
-	acf_add_options_page();
+
+    $page = acf_add_options_page(array(
+        'page_title' 	=> __('Global Theme Settings', 'thinkertree'),
+        'menu_title' 	=> __('Global Theme Settings', 'thinkertree'),
+        'menu_slug' 	=> 'global-theme-settings',
+        'capability' 	=> 'edit_posts',
+        'redirect' 	    => false
+    ));
+
 }
 
 /**
