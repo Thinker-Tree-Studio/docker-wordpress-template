@@ -13,7 +13,7 @@
     "> 5% or last 2 versions"
   ],
   "dependencies": {
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.12.0",
