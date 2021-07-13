@@ -6,13 +6,13 @@
         }
     ],
     "require": {
-	    "wpackagist-plugin/advanced-custom-fields": "^5.8",
-	    "wpackagist-plugin/acf-to-rest-api": "^3.1",
+	    "wpackagist-plugin/advanced-custom-fields": "^5.9",
+	    "wpackagist-plugin/acf-to-rest-api": "^3.3",
 	    "wpackagist-plugin/regenerate-thumbnails": "^3.1",
 	    "wpackagist-plugin/safe-svg": "^1.9",
-	    "wpackagist-plugin/google-analytics-dashboard-for-wp": "^5.3",
-	    "wpackagist-plugin/wordfence": "^7.4",
-	    "wpackagist-plugin/wordpress-seo": "^12.6",
-	    "roots/soil": "^3.9"
+	    "wpackagist-plugin/google-analytics-dashboard-for-wp": "^6.7",
+	    "wpackagist-plugin/wordfence": "^7.5",
+	    "wpackagist-plugin/wordpress-seo": "^16.6",
+	    "roots/soil": "^4.0"
 	  }
 }
