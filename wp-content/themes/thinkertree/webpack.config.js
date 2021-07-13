@@ -6,7 +6,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
@@ -30,7 +30,7 @@ module.exports = {
         sourceMap: true
       }),
       // enable the css minification plugin
-      new OptimizeCssAssetsPlugin({})
+      new CssMinimizerPlugin(),
     ]
   },
   module: {
