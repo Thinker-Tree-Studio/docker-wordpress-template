@@ -164,6 +164,21 @@ function thinkertree_scripts() {
 add_action( 'wp_enqueue_scripts', 'thinkertree_scripts' );
 
 /**
+ * ACF Blocks
+ */
+ // Check if function exists and hook into setup.
+ if(function_exists('acf_register_block_type')) {
+	 add_action('acf/init', 'register_acf_block_types');
+ }
+ 
+ function register_acf_block_types() {
+	 // Register ACF block
+	 acf_register_block_type(array(
+		 // Add args here
+	 ));
+ }
+
+/**
  * Add Options Page in ACF Pro
  */
 if( function_exists('acf_add_options_page') ) {
@@ -202,7 +217,7 @@ add_filter( 'image_resize_dimensions', 'thinkertree_thumbnail_upscale', 10, 6 );
  */
 function thinkertree_custom_image_sizes() {
 	// add_image_size('medium-large', 800, 800);
-	// add_image_size('hero-image', 1665, 9999);
+	// add_image_size('hero-image', 1920, 9999);
 }
 add_action('after_setup_theme', 'thinkertree_custom_image_sizes');
 
