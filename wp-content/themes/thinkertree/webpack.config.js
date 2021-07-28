@@ -11,6 +11,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const StyleLintPlugin = require("stylelint-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const path = require("path");
 
 // Build Config
@@ -44,6 +45,14 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name]-[contenthash].css",
       chunkFilename: "[id]-[contenthash].css",
+    }),
+    // Move images, fonts, and docs from src to dist folder
+    new CopyPlugin({
+      patterns: [
+        { from: "src/images", to: "images" },
+        { from: "src/docs", to: "docs" },
+        { from: "src/fonts", to: "fonts" },
+      ],
     }),
     // Add jQuery globally using ProvidePlugin
     new webpack.ProvidePlugin({
