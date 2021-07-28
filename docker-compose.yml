@@ -5,7 +5,7 @@ services:
     depends_on:
       - wordpress-db
       - memcached
-    image: wordpress:5.8-php7.4-apache
+    image: wordpress:latest
     container_name: wordpress
     ports:
       - 8000:80
