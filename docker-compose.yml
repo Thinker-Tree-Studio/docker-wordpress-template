@@ -1,29 +1,29 @@
-version: '3'
+version: "3.8"
 
 services:
   wordpress:
     depends_on:
-      - db
-    image: wordpress:5.7.2-php7.4-apache
+      - wordpress-db
+      - memcached
+    image: wordpress:5.8-php7.4-apache
     container_name: wordpress
     ports:
       - 8000:80
       - 443:443
     restart: always
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: wordpress-db
       WORDPRESS_DB_NAME: wpdb
       WORDPRESS_DB_USER: user
       WORDPRESS_DB_PASSWORD: password
     working_dir: /var/www/html
     volumes:
-      - ./wp-content:/var/www/html/wp-content
-      - ./wp-content/themes/thinkertree/wp-content/plugins:/var/www/html/wp-content/plugins
+      - ["./:/var/www/html"]
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
 
-  db:
+  wordpress-db:
     image: mysql:8.0
-    container_name: mysql
+    container_name: wordpress-db
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -33,13 +33,17 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
 
+  memcached:
+    image: memcached:1.6
+
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin:latest
     restart: always
     ports:
       - 3333:80
     environment:
-      PMA_HOST: db
+      PMA_HOST: wordpress-db
       MYSQL_ROOT_PASSWORD: password
+
 volumes:
-  db_data:
+  db_data: {}
