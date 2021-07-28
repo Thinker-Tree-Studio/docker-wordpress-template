@@ -1,4 +1,14 @@
 {
+  "name": "thinkertree",
+  "type": "project",
+  "description": "Wordpress boilerplate made by Thinker Tree Studio",
+  "authors": [
+    {
+      "name": "Alex Tjokro",
+      "email": "alex@thinkertree.co",
+      "homepage": "https://github.com/Thinker-Tree-Studio"
+    }
+  ],
   "repositories": [
     {
       "type": "composer",
@@ -8,13 +18,22 @@
   "require": {
     "wpackagist-plugin/advanced-custom-fields": "^5.9",
     "wpackagist-plugin/acf-to-rest-api": "^3.3",
+    "wpackagist-plugin/all-in-one-wp-migration": "^7",
+    "wpackagist-plugin/fakerpress": "^0",
     "wpackagist-plugin/regenerate-thumbnails": "^3.1",
     "wpackagist-plugin/safe-svg": "^1.9",
     "wpackagist-plugin/google-analytics-dashboard-for-wp": "^6.7",
     "wpackagist-plugin/wordfence": "^7.5",
-    "wpackagist-plugin/wordpress-seo": "^16.6",
-    "wpackagist-plugin/all-in-one-wp-migration": "^7",
-    "wpackagist-plugin/fakerpress": "^0",
-    "roots/soil": "^4.0"
+    "wpackagist-plugin/wordpress-seo": "^16.7"
+  },
+  "extra": {
+    "installer-paths": {
+      "wp-content/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "wp-content/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
+    }
   }
 }
