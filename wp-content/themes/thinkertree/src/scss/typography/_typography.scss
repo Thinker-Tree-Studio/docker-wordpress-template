@@ -1,17 +1,17 @@
 // Import fontawesome
-$fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free/webfonts" !default;
-@import "../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
-@import "../../../node_modules/@fortawesome/fontawesome-free/scss/regular";
-@import "../../../node_modules/@fortawesome/fontawesome-free/scss/solid";
-@import "../../../node_modules/@fortawesome/fontawesome-free/scss/brands";
-
-.fa,.fas,.far,.fal {
-  font-family: "Font Awesome 5 Free";
-}
-
-.fab {
-    font-family: "Font Awesome 5 Brands";
-}
+// $fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free/webfonts" !default;
+// @import "../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
+// @import "../../../node_modules/@fortawesome/fontawesome-free/scss/regular";
+// @import "../../../node_modules/@fortawesome/fontawesome-free/scss/solid";
+// @import "../../../node_modules/@fortawesome/fontawesome-free/scss/brands";
+//
+// .fa,.fas,.far,.fal {
+//   font-family: "Font Awesome 5 Free";
+// }
+//
+// .fab {
+//     font-family: "Font Awesome 5 Brands";
+// }
 // END fontawesome
 
 body,
@@ -20,10 +20,10 @@ input,
 select,
 optgroup,
 textarea {
-	color: $color__text-main;
-	font-family: $font__main;
-	@include font-size(1);
-	line-height: $font__line-height-body;
+  color: $color__text-main;
+  font-family: $font__main;
+  @include font-size(1);
+  line-height: $font__line-height-body;
 }
 
 @import "headings";
