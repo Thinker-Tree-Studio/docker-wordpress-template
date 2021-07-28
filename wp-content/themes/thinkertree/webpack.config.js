@@ -3,89 +3,105 @@
  */
 
 // Webpack Plugins
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const WebpackAssetsManifest = require('webpack-assets-manifest');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const webpack = require('webpack');
+const webpack = require("webpack");
+const autoprefixer = require("autoprefixer");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const WebpackAssetsManifest = require("webpack-assets-manifest");
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+const StyleLintPlugin = require("stylelint-webpack-plugin");
+const path = require("path");
 
 // Build Config
 module.exports = {
-  entry: {
-    'site': './src/site/index.js'
+  context: __dirname,
+  entry: "./src/index.js",
+  output: {
+    path: path.join(__dirname, "dist/"),
+    filename: "[name]-[contenthash].js",
+    chunkFilename: "[id]-[contenthash].js",
+    // clean the /dist folder before each build
+    clean: true,
   },
-  'output': {
-    path: path.join(__dirname, 'dist/'),
-    filename: '[name]-[hash].js',
-    chunkFilename: '[id]-[hash].js',
-  },
+  // Webpack default compiling mode is Production, changed to Development to see a verbose, human-readable file
+  mode: "development",
+  // Enable sourcemap
+  devtool: "cheap-module-source-map",
+  // Some optimization settings, including minifications
   optimization: {
     minimizer: [
-      // enable the js minification plugin
-      new UglifyJsPlugin({
-        cache: true,
+      // JS minification
+      new TerserPlugin({
         parallel: true,
-        sourceMap: true
       }),
-      // enable the css minification plugin
+      // CSS minification
       new CssMinimizerPlugin(),
-    ]
+    ],
   },
+  plugins: [
+    new StyleLintPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "[name]-[contenthash].css",
+      chunkFilename: "[id]-[contenthash].css",
+    }),
+    // Add jQuery globally using ProvidePlugin
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+    }),
+    // generate a JSON file that matches the original filename with the hashed version
+    new WebpackAssetsManifest({
+      // Options go here
+    }),
+    // BrowserSync settings
+    new BrowserSyncPlugin(
+      {
+        files: "**/*.php",
+        proxy: "http://localhost:8000",
+      },
+      {
+        // CSS changes will be injected instead of page refresh
+        injectChanges: true,
+        reload: false,
+      }
+    ),
+  ],
   module: {
     rules: [
-      // compile all .scss files to plain old css
       {
+        // Compile Sass/SCSS files into plain old CSS
         test: /\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
-          }
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
         ],
       },
       {
-        // Compile images
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: './images/',
-              name: '[name].[ext]'
-            }
-          }
-        ]
+        // Compile image files
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "file-loader",
+        options: {
+          outputPath: "./dist/images/",
+          name: "[name].[ext]",
+        },
       },
       {
-        // Compile svg images
+        // Compile SVG images
         test: /\.(svg)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              outputPath: './images/',
-              name: '[name].[ext]',
+              outputPath: "./dist/images/",
+              name: "[name].[ext]",
             },
           },
           {
-            loader: 'svgo-loader',
+            loader: "svgo-loader",
             options: {
               plugins: [
                 { removeTitle: true },
@@ -94,64 +110,42 @@ module.exports = {
               ],
             },
           },
-        ]
+        ],
       },
       {
         // Compile docs
         test: /\.(pdf|docx|xlsx)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              outputPath: './docs/',
-              name: '[name].[ext]'
-            }
-          }
-        ]
+              outputPath: "./dist/docs/",
+              name: "[name].[ext]",
+            },
+          },
+        ],
       },
       {
         // Compile fonts
         test: /\.(woff(2)?|ttf|eot)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              outputPath: './fonts/',
-              name: '[name].[ext]',
+              outputPath: "./dist/fonts/",
+              name: "[name].[ext]",
             },
           },
         ],
       },
       {
         // Use 'expose-loader' to make jQuery available to other scripts on global scope
-        test: require.resolve('jquery'),
-        use: [{
-          loader: 'expose-loader',
-          options: 'jQuery'
-        },{
-            loader: 'expose-loader',
-            options: '$'
-        }]
-      }
-    ]
+        test: require.resolve("jquery"),
+        loader: "expose-loader",
+        options: {
+          exposes: ["$", "jQuery"],
+        },
+      },
+    ],
   },
-  plugins: [
-    // extract css into dedicated file
-    new MiniCssExtractPlugin({
-      filename: '[name]-[hash].css',
-      chunkFilename: '[id]-[hash].css',
-    }),
-    // clean out dist directories on each build
-    new CleanWebpackPlugin(),
-    // generate a JSON file that matches the original filename with the hashed version
-    new WebpackAssetsManifest({
-      // Options go here
-    }),
-    // Add jQuery globally using ProvidePlugin
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-    })
-  ]
-}
+};
