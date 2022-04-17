@@ -16,15 +16,15 @@
     }
   ],
   "require": {
-    "wpackagist-plugin/advanced-custom-fields": "^5.9",
+    "wpackagist-plugin/advanced-custom-fields": "^5.12",
     "wpackagist-plugin/acf-to-rest-api": "^3.3",
     "wpackagist-plugin/all-in-one-wp-migration": "^7",
+    "wpackagist-plugin/google-analytics-dashboard-for-wp": "^7",
     "wpackagist-plugin/fakerpress": "^0",
     "wpackagist-plugin/regenerate-thumbnails": "^3.1",
     "wpackagist-plugin/safe-svg": "^1.9",
-    "wpackagist-plugin/google-analytics-dashboard-for-wp": "^6.7",
     "wpackagist-plugin/wordfence": "^7.5",
-    "wpackagist-plugin/wordpress-seo": "^16.7"
+    "wpackagist-plugin/wordpress-seo": "^18"
   },
   "extra": {
     "installer-paths": {
