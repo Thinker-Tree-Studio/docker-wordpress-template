@@ -6,7 +6,8 @@ services:
       - wordpress-db
       - memcached
     image: wordpress:latest
-    container_name: wordpress
+    # PLEASE CHANGE CONTAINER NAME
+    container_name: wordpress-template
     ports:
       - 8000:80
       - 443:443
@@ -23,7 +24,8 @@ services:
 
   wordpress-db:
     image: mysql:8.0
-    container_name: wordpress-db
+    # PLEASE CHANGE CONTAINER NAME
+    container_name: wordpress-db-template
     volumes:
       - db_data:/var/lib/mysql
     restart: always
